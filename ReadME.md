@@ -10,3 +10,5 @@ MONGO_HOST=
 MONGO_DB=
 JWT_SECRET=
 ```
+
+### By Moshe Duek
