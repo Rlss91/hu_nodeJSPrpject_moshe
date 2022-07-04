@@ -4,7 +4,6 @@ const auth = require("../middleware/auth");
 const { Card, validateCard, generateBizNumber } = require("../models/cards");
 
 cardsRouter.post("/", auth, async (req, res) => {
-  console.log(req);
   const { error } = validateCard(req.body);
   if (error) {
     return res
