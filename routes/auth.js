@@ -38,15 +38,15 @@ authRouter.post("/", async (req, res) => {
   });
 });
 
-authRouter.post("/loginbytoken",auth, (req, res)=>{
+authRouter.post("/loginbytoken", auth, async (req, res) => {
   const user = await User.findOne({ email: req.user.email });
   if (!user) {
     return res.status(400).json({ err: `invalid email or password` });
   }
 
   res.json({
-    token: true
+    token: true,
   });
-})
+});
 
 module.exports = authRouter;
