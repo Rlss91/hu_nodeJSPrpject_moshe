@@ -2,6 +2,7 @@ const Joi = require("joi");
 const { User } = require("../models/users");
 const authRouter = require("express").Router();
 const bcrypt = require("bcrypt");
+const auth = require("../middleware/auth");
 
 const authSchema = Joi.object({
   email: Joi.string().email().max(64).required(),
@@ -36,5 +37,16 @@ authRouter.post("/", async (req, res) => {
     token: user.generateToken(),
   });
 });
+
+authRouter.post("/loginbytoken",auth, (req, res)=>{
+  const user = await User.findOne({ email: req.user.email });
+  if (!user) {
+    return res.status(400).json({ err: `invalid email or password` });
+  }
+
+  res.json({
+    token: true
+  });
+})
 
 module.exports = authRouter;
